@@ -22,7 +22,7 @@ public class Marque {
 	@Column(name = "nom_marque", nullable = false, length = 255, unique = true)
 	private String nomCategorie;
 
-	@Column(name = "ID_PRODUIT")
+	@Column(name = "id_produit")
 	@OneToMany(mappedBy = "marque")
 	private List<Produit> produits;
 

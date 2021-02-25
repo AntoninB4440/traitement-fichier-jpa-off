@@ -1,10 +1,13 @@
 package entites;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,5 +21,8 @@ public class Ingredient {
 
 	@Column(name = "nom_ingredient", nullable = false, length = 255, unique = true)
 	private String nomIngredient;
+
+	@ManyToMany(mappedBy = "ingredients")
+	private List<Produit> produits;
 
 }
