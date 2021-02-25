@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,5 +35,13 @@ public class Produit {
 
 	@Column(name = "proteine100g_Produit")
 	private Double proteine100gProduit;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_CATEGORIE")
+	private Categorie categorie;
+
+	@ManyToOne
+	@JoinColumn(name = "ID_Marque")
+	private Marque marque;
 
 }
