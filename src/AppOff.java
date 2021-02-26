@@ -1,6 +1,4 @@
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import utils.IntegrationOpenFoodFacts;
 
 public class AppOff {
 
@@ -8,8 +6,11 @@ public class AppOff {
 		// TODO Auto-generated method stub
 
 		// Connection + creation base
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Off_JPA");
-		EntityManager em = entityManagerFactory.createEntityManager();
+//		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Off_JPA");
+//		EntityManager em = entityManagerFactory.createEntityManager();
+
+		IntegrationOpenFoodFacts integration = new IntegrationOpenFoodFacts();
+		integration.integrationOpenFoodFactsFile();
 	}
 
 }
