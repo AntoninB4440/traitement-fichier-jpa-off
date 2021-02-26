@@ -24,4 +24,62 @@ public class Additif {
 
 	@ManyToMany(mappedBy = "additifs")
 	private List<Produit> produits;
+
+	/**
+	 * 
+	 */
+	public Additif() {
+		super();
+	}
+
+	/**
+	 * @param nomAdditif
+	 */
+	public Additif(String nomAdditif) {
+		super();
+		this.nomAdditif = nomAdditif;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the nomAdditif
+	 */
+	public String getNomAdditif() {
+		return nomAdditif;
+	}
+
+	/**
+	 * @param nomAdditif the nomAdditif to set
+	 */
+	public void setNomAdditif(String nomAdditif) {
+		this.nomAdditif = nomAdditif;
+	}
+
+	/**
+	 * @return the produits
+	 */
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	/**
+	 * @param produits the produits to set
+	 */
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
+
 }

@@ -25,4 +25,61 @@ public class Ingredient {
 	@ManyToMany(mappedBy = "ingredients")
 	private List<Produit> produits;
 
+	/**
+	 * 
+	 */
+	public Ingredient() {
+		super();
+	}
+
+	/**
+	 * @param nomIngredient
+	 */
+	public Ingredient(String nomIngredient) {
+		super();
+		this.nomIngredient = nomIngredient;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the nomIngredient
+	 */
+	public String getNomIngredient() {
+		return nomIngredient;
+	}
+
+	/**
+	 * @param nomIngredient the nomIngredient to set
+	 */
+	public void setNomIngredient(String nomIngredient) {
+		this.nomIngredient = nomIngredient;
+	}
+
+	/**
+	 * @return the produits
+	 */
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	/**
+	 * @param produits the produits to set
+	 */
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
+
 }

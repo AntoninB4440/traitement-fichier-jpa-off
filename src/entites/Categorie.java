@@ -26,4 +26,61 @@ public class Categorie {
 	@OneToMany(mappedBy = "categorie")
 	private List<Produit> produits;
 
+	/**
+	 * 
+	 */
+	public Categorie() {
+		super();
+	}
+
+	/**
+	 * @param nomCategorie
+	 */
+	public Categorie(String nomCategorie) {
+		super();
+		this.nomCategorie = nomCategorie;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the nomCategorie
+	 */
+	public String getNomCategorie() {
+		return nomCategorie;
+	}
+
+	/**
+	 * @param nomCategorie the nomCategorie to set
+	 */
+	public void setNomCategorie(String nomCategorie) {
+		this.nomCategorie = nomCategorie;
+	}
+
+	/**
+	 * @return the produits
+	 */
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	/**
+	 * @param produits the produits to set
+	 */
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
+
 }

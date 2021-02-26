@@ -24,4 +24,62 @@ public class Allergene {
 
 	@ManyToMany(mappedBy = "allergenes")
 	private List<Produit> produits;
+
+	/**
+	 * 
+	 */
+	public Allergene() {
+		super();
+	}
+
+	/**
+	 * @param nomAllergene
+	 */
+	public Allergene(String nomAllergene) {
+		super();
+		this.nomAllergene = nomAllergene;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the nomAllergene
+	 */
+	public String getNomAllergene() {
+		return nomAllergene;
+	}
+
+	/**
+	 * @param nomAllergene the nomAllergene to set
+	 */
+	public void setNomAllergene(String nomAllergene) {
+		this.nomAllergene = nomAllergene;
+	}
+
+	/**
+	 * @return the produits
+	 */
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	/**
+	 * @param produits the produits to set
+	 */
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
+
 }

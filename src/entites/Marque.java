@@ -26,4 +26,61 @@ public class Marque {
 	@OneToMany(mappedBy = "marque")
 	private List<Produit> produits;
 
+	/**
+	 * 
+	 */
+	public Marque() {
+		super();
+	}
+
+	/**
+	 * @param nomCategorie
+	 */
+	public Marque(String nomCategorie) {
+		super();
+		this.nomCategorie = nomCategorie;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the nomCategorie
+	 */
+	public String getNomCategorie() {
+		return nomCategorie;
+	}
+
+	/**
+	 * @param nomCategorie the nomCategorie to set
+	 */
+	public void setNomCategorie(String nomCategorie) {
+		this.nomCategorie = nomCategorie;
+	}
+
+	/**
+	 * @return the produits
+	 */
+	public List<Produit> getProduits() {
+		return produits;
+	}
+
+	/**
+	 * @param produits the produits to set
+	 */
+	public void setProduits(List<Produit> produits) {
+		this.produits = produits;
+	}
+
 }
