@@ -20,7 +20,7 @@ public class Marque {
 	private int id;
 
 	@Column(name = "nom_marque", nullable = false, length = 255, unique = true)
-	private String nomCategorie;
+	private String nomMarque;
 
 	@Column(name = "id_produit")
 	@OneToMany(mappedBy = "marque")
@@ -36,9 +36,9 @@ public class Marque {
 	/**
 	 * @param nomCategorie
 	 */
-	public Marque(String nomCategorie) {
+	public Marque(String nomMarque) {
 		super();
-		this.nomCategorie = nomCategorie;
+		this.nomMarque = nomMarque;
 	}
 
 	/**
@@ -58,15 +58,15 @@ public class Marque {
 	/**
 	 * @return the nomCategorie
 	 */
-	public String getNomCategorie() {
-		return nomCategorie;
+	public String getNomMarque() {
+		return nomMarque;
 	}
 
 	/**
 	 * @param nomCategorie the nomCategorie to set
 	 */
-	public void setNomCategorie(String nomCategorie) {
-		this.nomCategorie = nomCategorie;
+	public void setNomMarque(String nomMarque) {
+		this.nomMarque = nomMarque;
 	}
 
 	/**

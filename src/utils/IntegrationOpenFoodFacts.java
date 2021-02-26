@@ -8,6 +8,9 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import DAO.CategorieDao;
+import DAO.MarqueDao;
+
 public class IntegrationOpenFoodFacts {
 
 	public void integrationOpenFoodFactsFile() {
@@ -17,41 +20,51 @@ public class IntegrationOpenFoodFacts {
 			List<String> lignes = FileUtils.readLines(file, "UTF-8");
 			lignes.remove(0);
 			for (String ligne : lignes) {
-				String[] decoupageLigne = ligne.split("\\|");
-				for (String string : decoupageLigne) {
-					System.out.println(string);
-				}
+				String[] decoupageLigne = ligne.split("\\|", -1);
 				// System.out.println(decoupageLigne[28]);
-				String categorie = decoupageLigne[0];
-				String marque = decoupageLigne[1];
+
+				// Récup et Insertion d'un catégorie
+				String nomCategorie = decoupageLigne[0];
+				CategorieDao catDao = new CategorieDao();
+				catDao.insererCategorie(nomCategorie);
+
+				// Récup et Insertion d'une marque
+				String nomMarque = decoupageLigne[1];
+				MarqueDao marDao = new MarqueDao();
+				marDao.insererMarque(nomMarque);
+
 				String nomProduit = decoupageLigne[2];
+
 				String nutritionGrade = decoupageLigne[3];
 
 				// Récupération de la liste d'ingrédient à partir du découpage
 				List<String> ingredients = new ArrayList<String>(
-						Arrays.asList(decoupageLigne[4].replaceAll("_", "").split(",")));
-				for (String ingredient : ingredients) {
-					System.out.println(ingredient);
-				}
+						Arrays.asList(decoupageLigne[4].replaceAll("_", "").split(",", -1)));
+//				for (String ingredient : ingredients) {
+//					System.out.println(ingredient);
+//				}
 
-				String energie = decoupageLigne[5];
-				String graisse = decoupageLigne[6];
-				String sucre = decoupageLigne[7];
-				String protein = decoupageLigne[9];
+				double energie = DoubleUtils.parse(decoupageLigne[5]);
 
-				// Récupération de la liste d'ingrédient à partir du découpage
-				List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",")));
-				// System.out.println(allergenes);
-				for (String allergene : allergenes) {
-					System.out.println(allergene);
-				}
+				double graisse = DoubleUtils.parse(decoupageLigne[6]);
+
+				double sucre = DoubleUtils.parse(decoupageLigne[7]);
+
+				double proteine = DoubleUtils.parse(decoupageLigne[9]);
 
 				// Récupération de la liste d'ingrédient à partir du découpage
-				List<String> additifs = new ArrayList<String>(Arrays.asList(decoupageLigne[29].split(",")));
+				List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",", -1)));
 				// System.out.println(allergenes);
-				for (String additif : additifs) {
-					System.out.println(additifs);
-				}
+//				for (String allergene : allergenes) {
+//					System.out.println(allergene);
+//				}
+
+				// Récupération de la liste d'ingrédient à partir du découpage
+				List<String> additifs = new ArrayList<String>(Arrays.asList(decoupageLigne[29].split(",", -1)));
+				// System.out.println(allergenes);
+//				for (String additif : additifs) {
+//					System.out.println(additif);
+//				}
 
 			}
 		} catch (IOException e) {
