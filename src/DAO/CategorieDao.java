@@ -12,6 +12,8 @@ public class CategorieDao extends AbstractDao {
 
 	private EntityManager em = emf.createEntityManager();
 
+	private EntityTransaction transaction = em.getTransaction();
+
 	public CategorieDao() {
 	}
 
@@ -21,7 +23,7 @@ public class CategorieDao extends AbstractDao {
 		query.setParameter("name", name);
 		List<Categorie> resultat = query.getResultList();
 		if (resultat.isEmpty()) {
-			EntityTransaction transaction = em.getTransaction();
+
 			transaction.begin();
 
 			Categorie categorieCree = new Categorie(name);

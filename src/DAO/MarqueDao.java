@@ -12,6 +12,8 @@ public class MarqueDao extends AbstractDao {
 
 	private EntityManager em = emf.createEntityManager();
 
+	private EntityTransaction transaction = em.getTransaction();
+
 	public MarqueDao() {
 	}
 
@@ -20,7 +22,7 @@ public class MarqueDao extends AbstractDao {
 		query.setParameter("name", name);
 		List<Marque> resultat = query.getResultList();
 		if (resultat.isEmpty()) {
-			EntityTransaction transaction = em.getTransaction();
+
 			transaction.begin();
 
 			Marque marqueCree = new Marque(name);
