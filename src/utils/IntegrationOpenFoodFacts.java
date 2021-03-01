@@ -73,7 +73,7 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> ingredients = new ArrayList<String>(
-							Arrays.asList(IngredientFormated.formatted(decoupageLigne[4])));
+							Arrays.asList(IngredientUtils.formatted(decoupageLigne[4])));
 					List<Ingredient> listIngredients = new ArrayList<>();
 
 					for (String ingredient : ingredients) {
