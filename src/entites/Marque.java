@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser une marque
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "marque")
 public class Marque {

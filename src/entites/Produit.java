@@ -16,6 +16,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser un produit
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "produit")
 public class Produit {
@@ -65,6 +71,7 @@ public class Produit {
 	private List<Additif> additifs = new ArrayList<>();
 
 	/**
+	 * Construteur
 	 * 
 	 */
 	public Produit() {
@@ -73,7 +80,9 @@ public class Produit {
 
 	// On garde les attributs qui permettent d'identifier de manière unique un
 	// produit
+
 	/**
+	 * Construteur
 	 * 
 	 * @param nomProduit
 	 * @param categorie

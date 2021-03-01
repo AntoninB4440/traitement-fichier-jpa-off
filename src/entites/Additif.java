@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser un additif
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "additif")
 public class Additif {
@@ -26,6 +32,7 @@ public class Additif {
 	private List<Produit> produits;
 
 	/**
+	 * Contruteur
 	 * 
 	 */
 	public Additif() {
@@ -33,6 +40,8 @@ public class Additif {
 	}
 
 	/**
+	 * Constructeur
+	 * 
 	 * @param nomAdditif
 	 */
 	public Additif(String nomAdditif) {

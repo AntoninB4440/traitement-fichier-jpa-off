@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser une Categorie
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "categorie")
 public class Categorie {
@@ -27,6 +33,7 @@ public class Categorie {
 	private List<Produit> produits;
 
 	/**
+	 * Construteur
 	 * 
 	 */
 	public Categorie() {
@@ -34,6 +41,8 @@ public class Categorie {
 	}
 
 	/**
+	 * Construteur
+	 * 
 	 * @param nomCategorie
 	 */
 	public Categorie(String nomCategorie) {

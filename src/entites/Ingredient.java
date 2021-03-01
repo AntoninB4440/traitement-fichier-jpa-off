@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser un ingredient
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "ingredient")
 public class Ingredient {
@@ -26,6 +32,7 @@ public class Ingredient {
 	private List<Produit> produits;
 
 	/**
+	 * Constructeur
 	 * 
 	 */
 	public Ingredient() {
@@ -33,6 +40,8 @@ public class Ingredient {
 	}
 
 	/**
+	 * Constructeur
+	 * 
 	 * @param nomIngredient
 	 */
 	public Ingredient(String nomIngredient) {

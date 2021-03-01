@@ -10,6 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant de matérialiser un allergene
+ * 
+ * @author anton
+ *
+ */
 @Entity
 @Table(name = "allergene")
 public class Allergene {
@@ -26,6 +32,7 @@ public class Allergene {
 	private List<Produit> produits;
 
 	/**
+	 * Construteur
 	 * 
 	 */
 	public Allergene() {
@@ -33,6 +40,8 @@ public class Allergene {
 	}
 
 	/**
+	 * Construteur
+	 * 
 	 * @param nomAllergene
 	 */
 	public Allergene(String nomAllergene) {
