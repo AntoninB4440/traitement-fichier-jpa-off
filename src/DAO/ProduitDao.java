@@ -5,7 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import entites.Additif;
+import entites.Allergene;
 import entites.Categorie;
+import entites.Ingredient;
 import entites.Marque;
 import entites.NutritionGrade;
 import entites.Produit;
@@ -57,5 +60,17 @@ public class ProduitDao extends AbstractDao {
 			produitCree = resultat.get(0);
 		}
 		return produitCree;
+	}
+
+	public void ajouterIngredientsProduit(List<Ingredient> listeIngredients, Produit produit) {
+		produit.setIngredients(listeIngredients);
+	}
+
+	public void ajouterAllergenesProduit(List<Allergene> listeAllergenes, Produit produit) {
+		produit.setAllergenes(listeAllergenes);
+	}
+
+	public void ajouterAdditifsProduit(List<Additif> listeAdditifs, Produit produit) {
+		produit.setAdditifs(listeAdditifs);
 	}
 }

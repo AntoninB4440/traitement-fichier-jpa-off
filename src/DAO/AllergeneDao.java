@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import entites.Allergene;
-import entites.Produit;
 
 public class AllergeneDao extends AbstractDao {
 
@@ -16,7 +15,7 @@ public class AllergeneDao extends AbstractDao {
 		this.em = em;
 	}
 
-	public void insererAllergene(Produit produit, String name) {
+	public Allergene insererAllergene(String name) {
 
 		Allergene allergeneCree = null;
 
@@ -36,6 +35,6 @@ public class AllergeneDao extends AbstractDao {
 			allergeneCree = resultat.get(0);
 		}
 
-		produit.getAllergenes().add(allergeneCree);
+		return allergeneCree;
 	}
 }

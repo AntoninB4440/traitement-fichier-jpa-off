@@ -18,6 +18,8 @@ import DAO.CategorieDao;
 import DAO.IngredientDao;
 import DAO.MarqueDao;
 import DAO.ProduitDao;
+import entites.Additif;
+import entites.Allergene;
 import entites.Categorie;
 import entites.Ingredient;
 import entites.Marque;
@@ -72,21 +74,27 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 							listIngredients.add(ingredientCree);
 						}
 					}
-					produitCree.setIngredients(listIngredients);
+					produitDao.ajouterIngredientsProduit(listIngredients, produitCree);
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",", -1)));
+					List<Allergene> listAllergenes = new ArrayList<>();
 
 					for (String allergene : allergenes) {
-						allDao.insererAllergene(produitCree, allergene);
+						Allergene allergeneCree = allDao.insererAllergene(allergene);
+						listAllergenes.add(allergeneCree);
 					}
+					produitDao.ajouterAllergenesProduit(listAllergenes, produitCree);
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> additifs = new ArrayList<String>(Arrays.asList(decoupageLigne[29].split(",", -1)));
+					List<Additif> listAdditifs = new ArrayList<>();
 
 					for (String additif : additifs) {
-						addiDao.insererAdditif(produitCree, additif);
+						Additif additifCree = addiDao.insererAdditif(additif);
+						listAdditifs.add(additifCree);
 					}
+					produitDao.ajouterAdditifsProduit(listAdditifs, produitCree);
 
 					compteur++;
 					System.out.println(compteur);

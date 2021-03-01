@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import entites.Additif;
-import entites.Produit;
 
 public class AdditifDao extends AbstractDao {
 
@@ -16,7 +15,7 @@ public class AdditifDao extends AbstractDao {
 		this.em = em;
 	}
 
-	public void insererAdditif(Produit produit, String name) {
+	public Additif insererAdditif(String name) {
 
 		Additif additifCree = null;
 
@@ -36,6 +35,6 @@ public class AdditifDao extends AbstractDao {
 			additifCree = resultat.get(0);
 		}
 
-		produit.getAdditifs().add(additifCree);
+		return additifCree;
 	}
 }
