@@ -30,7 +30,6 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 		int compteur = 0;
 
 		File file = new File("C:/SpringProject/traitement-fichier-jpa-off/csv/open-food-facts.csv");
-		// int cmp = 0;
 
 		// Création des DAO
 		CategorieDao catDao = new CategorieDao(em);
@@ -61,15 +60,12 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 					// Insertion du Produit
 					Produit produitCree = produitDao.insererProduit(decoupageLigne, categorieCree, marqueCree);
 
-					String nutritionGrade = decoupageLigne[3];
-
 					// Récupération de la liste d'ingrédient à partir du découpage
-					List<String> ingredients = new ArrayList<String>(
-							Arrays.asList(decoupageLigne[4].replaceAll("_", " ").split("[;,-]", -1)));
+					List<String> ingredients = new ArrayList<String>(Arrays.asList(decoupageLigne[4].trim()
+							.replaceAll("[_.*)(?]", "").replaceAll("  ", " ").split("[;,-]", -1)));
 
 					for (String ingredient : ingredients) {
 						if (ingredient.length() <= 255) {
-							// System.out.println(ingredient);
 							ingreDao.insererIngredient(produitCree, ingredient);
 						}
 					}
@@ -77,7 +73,6 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",", -1)));
 
-					// System.out.println(allergenes);
 					for (String allergene : allergenes) {
 						allDao.insererAllergene(produitCree, allergene);
 					}
@@ -85,7 +80,6 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> additifs = new ArrayList<String>(Arrays.asList(decoupageLigne[29].split(",", -1)));
 
-					// System.out.println(allergenes);
 					for (String additif : additifs) {
 						addiDao.insererAdditif(produitCree, additif);
 					}

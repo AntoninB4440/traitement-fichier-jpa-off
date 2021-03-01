@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import entites.Categorie;
 import entites.Marque;
+import entites.NutritionGrade;
 import entites.Produit;
 import utils.DoubleUtils;
 
@@ -30,6 +31,8 @@ public class ProduitDao extends AbstractDao {
 
 		double proteine = DoubleUtils.parse(decoupageLigne[9]);
 
+		String nutritionGrade = decoupageLigne[3];
+
 		Produit produitCree = null;
 
 		TypedQuery<Produit> query = em.createQuery(
@@ -47,6 +50,7 @@ public class ProduitDao extends AbstractDao {
 			produitCree.setGraisse100gProduit(graisse);
 			produitCree.setSucre100gProduit(sucre);
 			produitCree.setProteine100gProduit(proteine);
+			produitCree.setNutritionGradeFrProduit(NutritionGrade.find(nutritionGrade));
 			em.persist(produitCree);
 
 		} else {

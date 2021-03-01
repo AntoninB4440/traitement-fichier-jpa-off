@@ -18,24 +18,28 @@ public class IngredientDao extends AbstractDao {
 
 	public void insererIngredient(Produit produit, String name) {
 
-		Ingredient ingredientCree = null;
+		if (!name.isEmpty()) {
 
-		TypedQuery<Ingredient> query = em.createQuery("Select i from Ingredient i WHERE i.nomIngredient = :name ",
-				Ingredient.class);
+			Ingredient ingredientCree = null;
 
-		query.setParameter("name", name);
+			TypedQuery<Ingredient> query = em.createQuery("Select i from Ingredient i WHERE i.nomIngredient = :name ",
+					Ingredient.class);
 
-		List<Ingredient> resultat = query.getResultList();
+			query.setParameter("name", name);
 
-		if (resultat.isEmpty()) {
+			List<Ingredient> resultat = query.getResultList();
 
-			ingredientCree = new Ingredient(name);
-			em.persist(ingredientCree);
+			if (resultat.isEmpty()) {
 
-		} else {
-			ingredientCree = resultat.get(0);
+				ingredientCree = new Ingredient(name);
+				em.persist(ingredientCree);
+
+			} else {
+				ingredientCree = resultat.get(0);
+			}
+
+			produit.getIngredients().add(ingredientCree);
 		}
 
-		produit.getIngredients().add(ingredientCree);
 	}
 }
