@@ -7,14 +7,30 @@ import javax.persistence.TypedQuery;
 
 import entites.Additif;
 
+/**
+ * Classe gérant le CRUD d'un additif
+ * 
+ * @author anton
+ */
 public class AdditifDao extends AbstractDao {
 
 	private EntityManager em;
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param em
+	 */
 	public AdditifDao(EntityManager em) {
 		this.em = em;
 	}
 
+	/**
+	 * Méthode afin d'insérer sans doublon en BDD un additif à l'aide de son nom
+	 * 
+	 * @param name étant le nom de l'additif
+	 * @return un object Additif
+	 */
 	public Additif insererAdditif(String name) {
 
 		Additif additifCree = null;

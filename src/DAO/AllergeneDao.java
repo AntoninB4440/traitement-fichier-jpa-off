@@ -7,14 +7,32 @@ import javax.persistence.TypedQuery;
 
 import entites.Allergene;
 
+/**
+ * Classe gérant le CRUD d'un allergene
+ * 
+ * @author anton
+ *
+ */
 public class AllergeneDao extends AbstractDao {
 
 	private EntityManager em;
 
+	/**
+	 * Construteur
+	 * 
+	 * @param em
+	 */
 	public AllergeneDao(EntityManager em) {
 		this.em = em;
 	}
 
+	/**
+	 * Méthode afin d'insérer sans doublon en BDD un allergene à l'aide de son nom
+	 * 
+	 *
+	 * @param name
+	 * @return un object Allergene
+	 */
 	public Allergene insererAllergene(String name) {
 
 		Allergene allergeneCree = null;

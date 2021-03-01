@@ -25,8 +25,16 @@ import entites.Ingredient;
 import entites.Marque;
 import entites.Produit;
 
+/**
+ * @author anton Classe permettant d'effectuer la lecture et l'intégration en
+ *         BDD (hérite de AbstractDa pour partager le même emf)
+ */
 public class IntegrationOpenFoodFacts extends AbstractDao {
 
+	/**
+	 * Méthode à lancer afin d'effectuer la lecture et l'intégration des données en
+	 * BDD
+	 */
 	public void integrationOpenFoodFactsFile() {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();

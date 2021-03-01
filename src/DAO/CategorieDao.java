@@ -7,14 +7,31 @@ import javax.persistence.TypedQuery;
 
 import entites.Categorie;
 
+/**
+ * Classe gérant le CRUD d'une catégorie
+ * 
+ * @author anton
+ *
+ */
 public class CategorieDao extends AbstractDao {
 
 	private EntityManager em;
 
+	/**
+	 * Construteur
+	 * 
+	 * @param em
+	 */
 	public CategorieDao(EntityManager em) {
 		this.em = em;
 	}
 
+	/**
+	 * Méthode afin d'insérer sans doublon en BDD une categorie à l'aide de son nom
+	 * 
+	 * @param decoupageLigne
+	 * @return un object Categorie
+	 */
 	public Categorie insererCategorie(String[] decoupageLigne) {
 
 		String nomCategorie = decoupageLigne[0].replaceAll("\"", "");

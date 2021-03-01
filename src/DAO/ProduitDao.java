@@ -14,14 +14,35 @@ import entites.NutritionGrade;
 import entites.Produit;
 import utils.DoubleUtils;
 
+/**
+ * Classe gérant le CRUD d'un produit
+ * 
+ * @author anton
+ *
+ */
 public class ProduitDao extends AbstractDao {
 
 	private EntityManager em;
 
+	/**
+	 * Construteur
+	 * 
+	 * @param em
+	 */
 	public ProduitDao(EntityManager em) {
 		this.em = em;
 	}
 
+	/**
+	 * Méthode afin d'insérer sans doublon en BDD un produit à l'aide de son nom de
+	 * sa catégorie et de sa marque, set également les informations relatif à se
+	 * produit comme, l'energie100g, graisse100g etc etc
+	 * 
+	 * @param decoupageLigne
+	 * @param categorie
+	 * @param marque
+	 * @return
+	 */
 	public Produit insererProduit(String[] decoupageLigne, Categorie categorie, Marque marque) {
 
 		String nomProduit = decoupageLigne[2];
@@ -62,14 +83,32 @@ public class ProduitDao extends AbstractDao {
 		return produitCree;
 	}
 
+	/**
+	 * Permet de set une liste d'ingrédient à un produit
+	 * 
+	 * @param listeIngredients
+	 * @param produit
+	 */
 	public void ajouterIngredientsProduit(List<Ingredient> listeIngredients, Produit produit) {
 		produit.setIngredients(listeIngredients);
 	}
 
+	/**
+	 * Permet de set une liste d'allergene à un produit
+	 * 
+	 * @param listeIngredients
+	 * @param produit
+	 */
 	public void ajouterAllergenesProduit(List<Allergene> listeAllergenes, Produit produit) {
 		produit.setAllergenes(listeAllergenes);
 	}
 
+	/**
+	 * Permet de set une liste d'additif à un produit
+	 * 
+	 * @param listeIngredients
+	 * @param produit
+	 */
 	public void ajouterAdditifsProduit(List<Additif> listeAdditifs, Produit produit) {
 		produit.setAdditifs(listeAdditifs);
 	}

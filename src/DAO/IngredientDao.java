@@ -7,14 +7,31 @@ import javax.persistence.TypedQuery;
 
 import entites.Ingredient;
 
+/**
+ * Classe gérant le CRUD d'un ingrédient
+ * 
+ * @author anton
+ *
+ */
 public class IngredientDao extends AbstractDao {
 
 	private EntityManager em;
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param em
+	 */
 	public IngredientDao(EntityManager em) {
 		this.em = em;
 	}
 
+	/**
+	 * Méthode afin d'insérer sans doublon en BDD un ingrédient à l'aide de son nom
+	 * 
+	 * @param name
+	 * @return un object Ingredient
+	 */
 	public Ingredient insererIngredient(String name) {
 
 		if (!name.isEmpty()) {
