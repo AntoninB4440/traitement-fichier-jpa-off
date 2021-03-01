@@ -1,9 +1,12 @@
 package entites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +29,7 @@ public class Produit {
 	private String nomProduit;
 
 	@Column(name = "nutritionGradeFr_Produit", length = 1)
+	@Enumerated(EnumType.STRING)
 	private NutritionGrade nutritionGradeFrProduit;
 
 	@Column(name = "energie100g_Produit")
@@ -50,15 +54,15 @@ public class Produit {
 
 	@ManyToMany
 	@JoinTable(name = "ingredient_produit", joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "ID"))
-	private List<Ingredient> ingredients;
+	private List<Ingredient> ingredients = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "allergene_produit", joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "id_allergene", referencedColumnName = "ID"))
-	private List<Allergene> allergenes;
+	private List<Allergene> allergenes = new ArrayList<>();
 
 	@ManyToMany
 	@JoinTable(name = "additif_produit", joinColumns = @JoinColumn(name = "id_produit", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "id_additif", referencedColumnName = "ID"))
-	private List<Additif> additifs;
+	private List<Additif> additifs = new ArrayList<>();
 
 	/**
 	 * 

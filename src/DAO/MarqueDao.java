@@ -3,34 +3,40 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entites.Marque;
 
 public class MarqueDao extends AbstractDao {
 
-	private EntityManager em = emf.createEntityManager();
+	private EntityManager em;
 
-	private EntityTransaction transaction = em.getTransaction();
-
-	public MarqueDao() {
+	public MarqueDao(EntityManager em) {
+		this.em = em;
 	}
 
-	public void insererMarque(String name) {
+	public Marque insererMarque(String[] decoupageLigne) {
+
+		String nomMarque = decoupageLigne[1];
+
+		Marque marqueCree = null;
+
 		TypedQuery<Marque> query = em.createQuery("Select m from Marque m WHERE m.nomMarque = :name ", Marque.class);
-		query.setParameter("name", name);
+
+		query.setParameter("name", nomMarque);
+
 		List<Marque> resultat = query.getResultList();
+
 		if (resultat.isEmpty()) {
 
-			transaction.begin();
-
-			Marque marqueCree = new Marque(name);
+			marqueCree = new Marque(nomMarque);
 			em.persist(marqueCree);
 
-			transaction.commit();
 		} else {
-			System.out.println("La marque " + name + " existe déjà dans la BDD");
+			marqueCree = resultat.get(0);
 		}
+
+		return marqueCree;
 	}
+
 }

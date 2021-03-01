@@ -3,36 +3,39 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entites.Additif;
+import entites.Produit;
 
 public class AdditifDao extends AbstractDao {
 
-	private EntityManager em = emf.createEntityManager();
+	private EntityManager em;
 
-	private EntityTransaction transaction = em.getTransaction();
-
-	public AdditifDao() {
+	public AdditifDao(EntityManager em) {
+		this.em = em;
 	}
 
-	public void insererAdditif(String name) {
+	public void insererAdditif(Produit produit, String name) {
+
+		Additif additifCree = null;
+
 		TypedQuery<Additif> query = em.createQuery("Select a from Additif a WHERE a.nomAdditif = :name ",
 				Additif.class);
+
 		query.setParameter("name", name);
+
 		List<Additif> resultat = query.getResultList();
+
 		if (resultat.isEmpty()) {
 
-			transaction.begin();
-
-			Additif additifCree = new Additif(name);
+			additifCree = new Additif(name);
 			em.persist(additifCree);
 
-			transaction.commit();
-
 		} else {
-			System.out.println("L'additif" + name + " existe déjà dans la BDD");
+			additifCree = resultat.get(0);
 		}
+
+		produit.getAdditifs().add(additifCree);
 	}
 }

@@ -6,79 +6,93 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.apache.commons.io.FileUtils;
 
+import DAO.AbstractDao;
 import DAO.AdditifDao;
 import DAO.AllergeneDao;
 import DAO.CategorieDao;
 import DAO.IngredientDao;
 import DAO.MarqueDao;
+import DAO.ProduitDao;
+import entites.Categorie;
+import entites.Marque;
+import entites.Produit;
 
-public class IntegrationOpenFoodFacts {
+public class IntegrationOpenFoodFacts extends AbstractDao {
 
 	public void integrationOpenFoodFactsFile() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		int compteur = 0;
+
 		File file = new File("C:/SpringProject/traitement-fichier-jpa-off/csv/open-food-facts.csv");
 		// int cmp = 0;
+
+		// Création des DAO
+		CategorieDao catDao = new CategorieDao(em);
+		MarqueDao marDao = new MarqueDao(em);
+		ProduitDao produitDao = new ProduitDao(em);
+		IngredientDao ingreDao = new IngredientDao(em);
+		AllergeneDao allDao = new AllergeneDao(em);
+		AdditifDao addiDao = new AdditifDao(em);
 
 		try {
 			List<String> lignes = FileUtils.readLines(file, "UTF-8");
 			if (!lignes.isEmpty()) {
 				lignes.remove(0);
+
 				for (String ligne : lignes) {
+
+					transaction.begin();
+
 					String[] decoupageLigne = ligne.split("\\|", -1);
 					// System.out.println(decoupageLigne[28]);
 
-					// Récup et Insertion d'un catégorie
-					String nomCategorie = decoupageLigne[0].replaceAll("\"", "");
-					CategorieDao catDao = new CategorieDao();
-					catDao.insererCategorie(nomCategorie);
+					// Récup ou Insertion d'un catégorie
+					Categorie categorieCree = catDao.insererCategorie(decoupageLigne);
 
 					// Récup et Insertion d'une marque
-					String nomMarque = decoupageLigne[1];
-					MarqueDao marDao = new MarqueDao();
-					marDao.insererMarque(nomMarque);
+					Marque marqueCree = marDao.insererMarque(decoupageLigne);
 
-					String nomProduit = decoupageLigne[2];
+					// Insertion du Produit
+					Produit produitCree = produitDao.insererProduit(decoupageLigne, categorieCree, marqueCree);
 
 					String nutritionGrade = decoupageLigne[3];
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> ingredients = new ArrayList<String>(
 							Arrays.asList(decoupageLigne[4].replaceAll("_", " ").split("[;,-]", -1)));
-//					cmp++;
-//					System.out.println(cmp);
-					IngredientDao ingreDao = new IngredientDao();
+
 					for (String ingredient : ingredients) {
 						if (ingredient.length() <= 255) {
 							// System.out.println(ingredient);
-							ingreDao.insererIngredient(ingredient);
+							ingreDao.insererIngredient(produitCree, ingredient);
 						}
 					}
 
-					double energie = DoubleUtils.parse(decoupageLigne[5]);
-
-					double graisse = DoubleUtils.parse(decoupageLigne[6]);
-
-					double sucre = DoubleUtils.parse(decoupageLigne[7]);
-
-					double proteine = DoubleUtils.parse(decoupageLigne[9]);
-
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",", -1)));
-					AllergeneDao allDao = new AllergeneDao();
+
 					// System.out.println(allergenes);
 					for (String allergene : allergenes) {
-						allDao.insererAllergene(allergene);
+						allDao.insererAllergene(produitCree, allergene);
 					}
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> additifs = new ArrayList<String>(Arrays.asList(decoupageLigne[29].split(",", -1)));
-					AdditifDao addiDao = new AdditifDao();
+
 					// System.out.println(allergenes);
 					for (String additif : additifs) {
-						addiDao.insererAdditif(additif);
+						addiDao.insererAdditif(produitCree, additif);
 					}
 
+					compteur++;
+					System.out.println(compteur);
+					transaction.commit();
 				}
 
 			} else {

@@ -3,36 +3,39 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entites.Allergene;
+import entites.Produit;
 
 public class AllergeneDao extends AbstractDao {
 
-	private EntityManager em = emf.createEntityManager();
+	private EntityManager em;
 
-	private EntityTransaction transaction = em.getTransaction();
-
-	public AllergeneDao() {
+	public AllergeneDao(EntityManager em) {
+		this.em = em;
 	}
 
-	public void insererAllergene(String name) {
+	public void insererAllergene(Produit produit, String name) {
+
+		Allergene allergeneCree = null;
+
 		TypedQuery<Allergene> query = em.createQuery("Select a from Allergene a WHERE a.nomAllergene = :name ",
 				Allergene.class);
+
 		query.setParameter("name", name);
+
 		List<Allergene> resultat = query.getResultList();
+
 		if (resultat.isEmpty()) {
 
-			transaction.begin();
-
-			Allergene allergeneCree = new Allergene(name);
+			allergeneCree = new Allergene(name);
 			em.persist(allergeneCree);
 
-			transaction.commit();
-
 		} else {
-			System.out.println("L'allergene" + name + " existe déjà dans la BDD");
+			allergeneCree = resultat.get(0);
 		}
+
+		produit.getAllergenes().add(allergeneCree);
 	}
 }

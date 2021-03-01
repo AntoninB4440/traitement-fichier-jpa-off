@@ -3,25 +3,37 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entites.Categorie;
 import entites.Marque;
 import entites.Produit;
+import utils.DoubleUtils;
 
 public class ProduitDao extends AbstractDao {
 
-	private EntityManager em = emf.createEntityManager();
+	private EntityManager em;
 
-	private EntityTransaction transaction = em.getTransaction();
-
-	public ProduitDao() {
+	public ProduitDao(EntityManager em) {
+		this.em = em;
 	}
 
-	public void insererProduit(String nomProduit, Categorie categorie, Marque marque) {
+	public Produit insererProduit(String[] decoupageLigne, Categorie categorie, Marque marque) {
+
+		String nomProduit = decoupageLigne[2];
+
+		double energie = DoubleUtils.parse(decoupageLigne[5]);
+
+		double graisse = DoubleUtils.parse(decoupageLigne[6]);
+
+		double sucre = DoubleUtils.parse(decoupageLigne[7]);
+
+		double proteine = DoubleUtils.parse(decoupageLigne[9]);
+
+		Produit produitCree = null;
+
 		TypedQuery<Produit> query = em.createQuery(
-				"Select p from Produit p JOIN Categorie c JOIN Marque m WHERE p.nomProduit = ?1 AND c.nomCategorie = ?2 AND m.nomMarque = ?3",
+				"Select p from Produit p JOIN p.categorie c JOIN p.marque m WHERE p.nomProduit = ?1 AND c.nomCategorie = ?2 AND m.nomMarque = ?3",
 				Produit.class);
 		query.setParameter(1, nomProduit);
 		query.setParameter(2, categorie.getNomCategorie());
@@ -30,13 +42,16 @@ public class ProduitDao extends AbstractDao {
 		List<Produit> resultat = query.getResultList();
 		if (resultat.isEmpty()) {
 
-			transaction.begin();
-			Produit produitCree = new Produit(nomProduit, categorie, marque);
+			produitCree = new Produit(nomProduit, categorie, marque);
+			produitCree.setEnergie100gProduit(energie);
+			produitCree.setGraisse100gProduit(graisse);
+			produitCree.setSucre100gProduit(sucre);
+			produitCree.setProteine100gProduit(proteine);
 			em.persist(produitCree);
 
-			transaction.commit();
 		} else {
-			System.out.println("La produit " + nomProduit + " existe déjà dans la BDD");
+			produitCree = resultat.get(0);
 		}
+		return produitCree;
 	}
 }

@@ -3,35 +3,39 @@ package DAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import entites.Categorie;
 
 public class CategorieDao extends AbstractDao {
 
-	private EntityManager em = emf.createEntityManager();
+	private EntityManager em;
 
-	private EntityTransaction transaction = em.getTransaction();
-
-	public CategorieDao() {
+	public CategorieDao(EntityManager em) {
+		this.em = em;
 	}
 
-	public void insererCategorie(String name) {
+	public Categorie insererCategorie(String[] decoupageLigne) {
+
+		String nomCategorie = decoupageLigne[0].replaceAll("\"", "");
+
+		Categorie categorieCree = null;
+
 		TypedQuery<Categorie> query = em.createQuery("Select c from Categorie c WHERE c.nomCategorie = :name ",
 				Categorie.class);
-		query.setParameter("name", name);
+		query.setParameter("name", nomCategorie);
+
 		List<Categorie> resultat = query.getResultList();
+
 		if (resultat.isEmpty()) {
 
-			transaction.begin();
-
-			Categorie categorieCree = new Categorie(name);
+			categorieCree = new Categorie(nomCategorie);
 			em.persist(categorieCree);
 
-			transaction.commit();
 		} else {
-			System.out.println("La catégorie " + name + " existe déjà dans la BDD");
+			categorieCree = resultat.get(0);
 		}
+		return categorieCree;
+
 	}
 }
