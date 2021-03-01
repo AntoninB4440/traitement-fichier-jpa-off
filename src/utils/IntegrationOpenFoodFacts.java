@@ -19,6 +19,7 @@ import DAO.IngredientDao;
 import DAO.MarqueDao;
 import DAO.ProduitDao;
 import entites.Categorie;
+import entites.Ingredient;
 import entites.Marque;
 import entites.Produit;
 
@@ -61,14 +62,17 @@ public class IntegrationOpenFoodFacts extends AbstractDao {
 					Produit produitCree = produitDao.insererProduit(decoupageLigne, categorieCree, marqueCree);
 
 					// Récupération de la liste d'ingrédient à partir du découpage
-					List<String> ingredients = new ArrayList<String>(Arrays.asList(decoupageLigne[4].trim()
-							.replaceAll("[_.*)(?]", "").replaceAll("  ", " ").split("[;,-]", -1)));
+					List<String> ingredients = new ArrayList<String>(
+							Arrays.asList(IngredientFormated.formatted(decoupageLigne[4])));
+					List<Ingredient> listIngredients = new ArrayList<>();
 
 					for (String ingredient : ingredients) {
 						if (ingredient.length() <= 255) {
-							ingreDao.insererIngredient(produitCree, ingredient);
+							Ingredient ingredientCree = ingreDao.insererIngredient(ingredient);
+							listIngredients.add(ingredientCree);
 						}
 					}
+					produitCree.setIngredients(listIngredients);
 
 					// Récupération de la liste d'ingrédient à partir du découpage
 					List<String> allergenes = new ArrayList<String>(Arrays.asList(decoupageLigne[28].split(",", -1)));

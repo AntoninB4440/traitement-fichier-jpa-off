@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import entites.Ingredient;
-import entites.Produit;
 
 public class IngredientDao extends AbstractDao {
 
@@ -16,7 +15,7 @@ public class IngredientDao extends AbstractDao {
 		this.em = em;
 	}
 
-	public void insererIngredient(Produit produit, String name) {
+	public Ingredient insererIngredient(String name) {
 
 		if (!name.isEmpty()) {
 
@@ -38,8 +37,9 @@ public class IngredientDao extends AbstractDao {
 				ingredientCree = resultat.get(0);
 			}
 
-			produit.getIngredients().add(ingredientCree);
+			return ingredientCree;
 		}
+		return null;
 
 	}
 }
